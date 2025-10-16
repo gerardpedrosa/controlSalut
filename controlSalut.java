@@ -107,7 +107,7 @@ public class controlSalut {
                 try {
                     System.out.println("Introdueix la nova edat:");
                     int novaEdat = scanner.nextInt();
-                if (novaEdat < 0 || novaEdat > 120) {
+                if (novaEdat > 0 && novaEdat < 120) {
                     edat = novaEdat;
                     System.out.println("Edat modificada correctament.");
                 } else {
@@ -124,7 +124,7 @@ public class controlSalut {
                 try {
                     System.out.println("Introdueix el nou pes (kg):");
                     double nouPes = scanner.nextDouble();
-                if (nouPes <= 0 || nouPes > 500 && (nouPes * 100) % 1 == 0) {
+                if (nouPes > 0 && nouPes <= 500 && (nouPes * 100) % 1 == 0) {
                     pes = nouPes;
                     System.out.println("Pes modificat correctament.");
                 } else {
@@ -138,6 +138,7 @@ public class controlSalut {
                 break;
 
             case "4":
+            
                 try {
                     System.out.println("Introdueix la nova alçada (m):");
                     double novaAlçada = scanner.nextDouble();
@@ -158,9 +159,59 @@ public class controlSalut {
                 break;
                 }
                 break;
+
                 case "c":
                     System.out.println("c) Visualitzar dades");
-                    break;
+                if (nomComplet.equals("") || edat == -1 || pes == -1 || alçada == -1) {
+                    System.out.println("No has introduït totes les dades encara.");
+                } 
+                    
+                else {
+                    String[] paraules = nomComplet.trim().toLowerCase().split("\\s+");
+                    String nomNormalitzat = "";
+                for (String paraula : paraules) 
+                {
+                if (!paraula.isEmpty()) {
+                    nomNormalitzat += Character.toUpperCase(paraula.charAt(0)) + paraula.substring(1) + " ";
+                }
+                }
+                    nomNormalitzat = nomNormalitzat.trim();
+                    double imc = pes / (alçada * alçada);
+                    String categoriaIMC;
+                if (imc < 18.5) {
+                    categoriaIMC = "pes baix";
+                } 
+                else if (imc <= 24.9) {
+                    categoriaIMC = "pes normal";
+                } 
+                else if (imc <= 29.9) {
+                    categoriaIMC = "sobrepès";
+                } 
+                else {
+                    categoriaIMC = "obesitat";
+                }
+
+                // FC màxima i zona objectiu
+                int fcMax = 220 - edat;
+                int fc50 = (int)Math.round(fcMax * 0.5);
+                int fc85 = (int)Math.round(fcMax * 0.85);
+                double litresAigua = pes * 0.035;
+
+                // Any naixement
+                int anyActual = java.time.Year.now().getValue();
+                int anyNaixement = anyActual - edat;
+
+        
+                System.out.println("Hola, " + nomNormalitzat);
+                System.out.printf("Edat: %d anys, Pes: %.2f kg, Alçada: %.2f m%n", edat, pes, alçada);
+                System.out.printf("IMC: %.2f (%s)%n", imc, categoriaIMC);
+                System.out.printf("FC màxima estimada: %d bpm%n", fcMax);
+                System.out.printf("Zona FC objectiu: %d a %d bpm%n", fc50, fc85);
+                System.out.printf("Aigua recomanada: %.2f L/dia%n", litresAigua);
+                System.out.printf("Any de naixement aproximat: %d%n", anyNaixement);
+                }
+                break;
+
                 case "d":
                     System.out.println("Estàs segur que vols sortir? (si/no)");
                     String confirmacio = scanner.nextLine().toLowerCase();
