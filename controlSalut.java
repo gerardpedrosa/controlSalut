@@ -49,7 +49,8 @@ public class controlSalut {
                 }
                 try {
                     System.out.println("Introdueix el teu pes (kg):");
-                    pes = scanner.nextDouble();
+                    String entradaPes = scanner.nextLine().replace(",", ".");
+                    pes = Double.parseDouble(entradaPes);
                 if (pes <= 0 || pes > 500) {
                     System.out.println("Pes no vàlid. Torna-ho a intentar.");
                     scanner.nextLine();
@@ -69,7 +70,8 @@ public class controlSalut {
                     scanner.nextLine();
                 try {
                     System.out.println("Introdueix la teva alçada (m):");
-                    alçada = scanner.nextDouble();
+                    String entradaAlcada = scanner.nextLine().replace(",", ".");
+                    alçada = Double.parseDouble(entradaAlcada);
                 if (alçada <= 0.5 || alçada >= 2.5) {
                     System.out.println("Alçada no vàlida,ha de ser entre 0.5 i 2.5 metres");
                     scanner.nextLine();
@@ -95,7 +97,7 @@ public class controlSalut {
         switch (opcioModificacio) {
                 case "1":
                     System.out.println("Introdueix el nou nom complet:");
-                     String nouNom = scanner.nextLine();
+                    String nouNom = scanner.nextLine();
                 if (!nouNom.equals("")) {
                     nomComplet = nouNom;
                     System.out.println("Nom modificat correctament.");
@@ -222,7 +224,9 @@ public class controlSalut {
                 } else {
                     System.out.println("Tornant al menú principal...");
                 }
+                scanner.close();
                 break;
+
             }
         }
     }
